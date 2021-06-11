@@ -1,0 +1,31 @@
+<div class="card">
+  <div [formGroup]="form" class="row card-body">
+    <div class="col-3">
+      <div>Timer, ms</div>
+      <input
+        class="form-control form-control-sm"
+        type="text"
+        placeholder="ms"
+        formControlName="delay"
+      />
+    </div>
+    <div class="col-3">
+      <div>Array size</div>
+      <input
+        class="form-control form-control-sm"
+        type="text"
+        placeholder="size"
+        formControlName="numberOfElements"
+      />
+    </div>
+    <div class="col-6">
+      <div>Additional array ids</div>
+      <input
+        class="form-control form-control-sm"
+        type="text"
+        placeholder="ids"
+        formControlName="arrayIds"
+      />
+    </div>
+  </div>
+</div>

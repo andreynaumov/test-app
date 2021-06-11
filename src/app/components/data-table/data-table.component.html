@@ -1,0 +1,41 @@
+<table class="table table-sm table-bordered mt-3">
+  <thead>
+    <tr>
+      <th class="col-2">ID</th>
+      <th class="col-2">Int</th>
+      <th class="col-3">Float</th>
+      <th class="col-2">Color</th>
+      <th class="col-3">Child</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mockDataList; trackBy: itemId">
+      <td>{{ item.id }}</td>
+      <td>{{ item.int }}</td>
+      <td>{{ item.float }}</td>
+      <td [appBgColor]="item.color">{{ item.color }}</td>
+      <td>
+        <ng-container
+          *ngTemplateOutlet="table; context: item.child"
+        ></ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #table let-id="id" let-color="color">
+  <table class="table table-sm table-bordered" [style.marginBottom]="0">
+    <thead>
+      <tr>
+        <th class="col-6">ID</th>
+        <th class="col-6">Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ id }}</td>
+        <td [appBgColor]="color">{{ color }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
