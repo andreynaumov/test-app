@@ -9,10 +9,6 @@ export class BgColorDirective implements OnInit {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.renderer.setStyle(
-      this.el.nativeElement,
-      'background-color',
-      this.colorHEX
-    );
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', this.colorHEX);
   }
 }

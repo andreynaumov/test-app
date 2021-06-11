@@ -15,9 +15,7 @@
       <td>{{ item.float }}</td>
       <td [appBgColor]="item.color">{{ item.color }}</td>
       <td>
-        <ng-container
-          *ngTemplateOutlet="table; context: item.child"
-        ></ng-container>
+        <ng-container *ngTemplateOutlet="table; context: item.child"></ng-container>
       </td>
     </tr>
   </tbody>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { fromWorker } from 'observable-webworker';
+import { plainToClass } from 'class-transformer';
 import { FormValue } from './interfaces/form.value';
 import { Parent } from './classes/Parent';
 
@@ -9,8 +12,17 @@ import { Parent } from './classes/Parent';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public formChange$: Subject<FormValue> = new Subject<FormValue>();
+  public formChange$: BehaviorSubject<FormValue> = new BehaviorSubject<FormValue>(null);
   public mockDataList$!: Observable<Parent[]>;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.runWorker();
+  }
+
+  runWorker(): void {
+    this.mockDataList$ = fromWorker<FormValue, string>(
+      () => new Worker('./app.worker', { type: 'module' }),
+      this.formChange$
+    ).pipe(map((message) => JSON.parse(message).map((item: Parent) => plainToClass(Parent, item))));
+  }
 }
