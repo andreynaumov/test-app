@@ -1,11 +1,11 @@
-import { Parent } from './Parent';
+import { Utils } from './Utils';
 
 export class Children {
   id: string;
   color: string;
 
   constructor() {
-    this.id = Parent.getID();
-    this.color = Parent.getHEXColor();
+    this.id = Utils.getID();
+    this.color = Utils.getHEXColor();
   }
 }

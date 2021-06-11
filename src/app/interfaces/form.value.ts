@@ -1,5 +1,5 @@
 export interface FormValue {
-  readonly delay: number;
-  readonly numberOfElements: number;
-  readonly arrayIds: string;
+  readonly delay: string;
+  readonly numberOfElements: string;
+  readonly listOfId: string;
 }

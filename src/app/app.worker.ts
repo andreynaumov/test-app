@@ -1,41 +1,36 @@
 import { DoWork, runWorker } from 'observable-webworker';
 import { interval, Observable } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { FormValue } from './interfaces/form.value';
 import { Parent } from './classes/Parent';
+import { Options } from './classes/Options';
 
-export class AppWorker implements DoWork<FormValue, string> {
+export class AppWorker implements DoWork<Options, string> {
   private amountItemList = 10;
 
-  public work(input$: Observable<FormValue>): Observable<string> {
-    return input$.pipe(
-      switchMap((formValue) => {
-        return this.getInterval(formValue);
-      })
-    );
+  public work(input$: Observable<Options>): Observable<string> {
+    return input$.pipe(switchMap((formValue) => this.getInterval(formValue)));
   }
 
-  private getInterval(vl: FormValue): Observable<string> {
+  private getInterval(vl: Options): Observable<string> {
     return interval(vl.delay).pipe(
       startWith(0),
-      map(() => this.generateData(vl))
+      map(() => this.generateMockJSON(vl))
     );
   }
 
-  private generateData(vl: FormValue): string {
-    const mockData = Array(+vl.numberOfElements)
+  private generateMockJSON(vl: Options): string {
+    const mockList = Array(vl.numberOfElements)
       .fill(null)
       .map(() => new Parent());
 
-    const arrayIds = vl.arrayIds.split(',').filter((el) => !!el.length);
-    let lastIndex = mockData.length - 1;
+    let lastIndex = mockList.length - 1;
 
-    arrayIds.forEach((newIndex) => {
-      mockData[lastIndex].setId(newIndex);
+    vl.listOfId.forEach((newIndex) => {
+      mockList[lastIndex].setId(newIndex);
       lastIndex--;
     });
 
-    return JSON.stringify(mockData.slice(-this.amountItemList).reverse());
+    return JSON.stringify(mockList.slice(-this.amountItemList).reverse());
   }
 }
 
