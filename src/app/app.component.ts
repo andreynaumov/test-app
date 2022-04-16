@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   private runWorker(): void {
     this.mockDataList$ = fromWorker<Options, string>(
-      () => new Worker('./app.worker', { type: 'module' }),
+      () => new Worker(new URL('./app.worker', import.meta.url), { type: 'module' }),
       this.formChange$
     ).pipe(map((message) => this.parseDataList(message)));
   }
