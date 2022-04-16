@@ -1,7 +1,10 @@
 # TestApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
+Application for demonstrating the work of webworkers.
+The page displays fake data that is generated from an array of a certain length, updated at a certain interval.
+These values can also be changed on the application page.
 
-## Development server
+# Fast Start
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm ci` for install dependencies
+Run `npm run start` for start dev serve with example
